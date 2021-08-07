@@ -1,0 +1,10 @@
+.LeftBarContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+.LeftBarContent > p {
+  font-size: 3.6vh;
+  text-align: center;
+}

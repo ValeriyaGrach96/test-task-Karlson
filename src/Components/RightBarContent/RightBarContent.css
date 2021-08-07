@@ -1,0 +1,47 @@
+.RightBarContent {
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  height: 100%;
+
+  display: grid;
+  grid-template-rows: 1fr 2fr;
+  grid-gap: 67%;
+}
+.CloseButton {
+  height: 70%;
+  width: 25%;
+  margin-left: auto;
+  padding: 0;
+  background-color: white;
+  border: 3px solid black;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.CloseButton > img {
+  width: 60%;
+  height: 60%;
+}
+.QRcode {
+  margin-bottom: 20px;
+
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 10px;
+}
+.QRcode > p {
+  margin: 0;
+  text-align: end;
+  vertical-align: middle;
+  padding-top: 10%;
+  font-size: 2.3vh;
+  text-transform: uppercase;
+}
+.QRcode > img {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  text-align: start;
+}
