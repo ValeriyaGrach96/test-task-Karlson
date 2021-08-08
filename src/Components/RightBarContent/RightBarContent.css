@@ -24,6 +24,16 @@
   width: 60%;
   height: 60%;
 }
+.CloseButton:hover,
+.CloseButton:focus,
+.CloseButton:focus-visible {
+  background-color: black;
+}
+.CloseButton:hover > img,
+.CloseButton:focus > img,
+.CloseButton:focus-visible > img {
+  content: url('../../assets/icons/iconCloseWhite.svg');
+}
 .QRcode {
   margin-bottom: 20px;
 

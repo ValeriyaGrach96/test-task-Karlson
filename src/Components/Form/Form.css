@@ -71,14 +71,18 @@
   text-transform: uppercase;
   color: black;
 }
-.ButtonSubmit:disabled:hover {
+.ButtonSubmit:hover:disabled {
   border: 1px solid #4E4E4E;
   color: #4E4E4E;
   background-color: transparent;
 }
-.ButtonSubmit:focus,
-.ButtonSubmit:hover {
+.ButtonSubmit:hover,
+.ButtonSubmit:focus {
   background-color: black;
   border: 1px solid black;
   color: white;
+}
+.error {
+  color: red;
+  text-transform: uppercase;
 }

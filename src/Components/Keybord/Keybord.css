@@ -13,8 +13,8 @@
   text-transform: uppercase;
   font-size: 2vh;
 }
-.Keybord > button:focus,
-.Keybord > button:hover {
+.Keybord > button:hover,
+.Keybord > button:focus{
   background-color: black;
   border: 1px solid black;
   color: white;

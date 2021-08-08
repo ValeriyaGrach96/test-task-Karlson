@@ -1,25 +1,52 @@
 .App {
   text-align: center;
 }
-
 main {
   width: 100vw;
   height: 100vh;
-  background: top left / cover no-repeat no-repeat url('./assets/images/backgroundBaby.png');
+  /* background: top left / cover no-repeat no-repeat url('./assets/images/backgroundBaby.png'); */
 
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 3fr 3fr;
   grid-gap: 40%;
+
+  overflow: hidden;
+}
+.EmptyMain {
+  /* background: top left / cover no-repeat no-repeat url('./assets/images/backgroundVideo.png'); */
+  position: relative;
+}
+.EmptyMain > iframe,
+.EmptyMain > video {
+  position: absolute;
+  width: 100%;
+  z-index: -1;
 }
 .leftAsideBar {
   background-color: #86D3F4;
   padding: 12.5% 6%;
   color: black;
 }
+.Final {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .rightAsideBar {
   padding: 20px;
 }
 p {
   margin: 0;
+}
+.emptyLeftAsideBar,
+.emptyRightAsideBar {
+  margin: 0;
+  padding: 0;
+  
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  position: relative;
 }
