@@ -1,9 +1,9 @@
 import Form from "../Form/Form";
-import "./LeftBarContent.css";
+import styles from "./LeftBarContent.module.css";
 
 function LeftBarContent(): JSX.Element {
   return (
-    <div className="LeftBarContent">
+    <div className={styles.LeftBarContent}>
       <p>
         Введите ваш номер <br /> мобильного телефона
       </p>

@@ -1,8 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Page } from "../../App";
 import QRcode from "../../assets/images/QRcode.svg";
-import "./Registration.css";
-
+import styles from "./Registration.module.css";
 interface Props {
   goBack: (newPage: Page) => void;
 }
@@ -20,7 +19,7 @@ function Registration({ goBack }: Props): JSX.Element {
   });
 
   const classesRegistration: string = useMemo(() => {
-    return `Registration ${isLanding ? "Active" : ''}`;
+    return `${styles.Registration} ${isLanding ? styles.Active : ''}`;
   }, [isLanding]);
 
   return (
@@ -36,7 +35,7 @@ function Registration({ goBack }: Props): JSX.Element {
       </p>
       <button
         type="button"
-        className="ButtonRegistration"
+        className={styles.ButtonRegistration}
         onClick={() => goBack("registration")}
       >
         ок

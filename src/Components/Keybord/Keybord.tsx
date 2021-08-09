@@ -1,5 +1,6 @@
 import {PointerEvent, useCallback, useEffect, useState} from 'react';
-import './Keybord.css';
+import style from './Keybord.module.css';
+import { onFocusElement, arrowsNavigation } from '../../assets/utils/keybordNavigation';
 
 interface Props {
   onClick: (event: PointerEvent<HTMLButtonElement>) => void
@@ -11,60 +12,27 @@ function Keybord({onClick}: Props) :JSX.Element {
   const [currentPosition, setCurrentPosition] = useState({row: 1, column: 1});
 
   const handleNavigation = useCallback((event: KeyboardEvent) => {
-    let newPosition = currentPosition;
-    let value;
-    if (event.key === "ArrowUp") {
-      if(currentPosition.row !== 0) {
-        newPosition = {row: currentPosition.row - 1, column: currentPosition.column};
-      }
-    }
-    if (event.key === "ArrowDown") {
-      if(currentPosition.row !== 3) {
-        newPosition = {row: currentPosition.row + 1, column: currentPosition.column};
-      }
-    }
-    if (event.key === "ArrowLeft") {
-      if(currentPosition.column !== 0) {
-        newPosition = {row: currentPosition.row, column: currentPosition.column - 1};
-      }
-    }
-    if (event.key === "ArrowRight") {
-      if(currentPosition.column !== 2) {
-        newPosition = {row: currentPosition.row, column: currentPosition.column + 1};
-      }
-    }
-    value = coordinates[newPosition.row][newPosition.column];
+    const newPosition = arrowsNavigation(event, currentPosition);
     setCurrentPosition(newPosition);
-    onFocusElement(String(value));
+    onFocusElement(
+      String(coordinates[newPosition.row][newPosition.column]),
+      style.Keyboard
+    );
   }, [currentPosition]);
 
   useEffect(() => {
     window.addEventListener('keydown', handleNavigation);
-    const value = coordinates[currentPosition.row][currentPosition.column];
-    setCurrentPosition(currentPosition);
-    onFocusElement(String(value));
+    onFocusElement(
+      String(coordinates[currentPosition.row][currentPosition.column]),
+      style.Keyboard
+    );
     return (() => {
       window.removeEventListener('keydown', handleNavigation);
     });
   }, [currentPosition, handleNavigation])
 
-  function onFocusElement (position: string) {
-    let buttonElement: HTMLElement;
-    if(['10', '11'].includes(position)) {
-      position = 'delete';
-    }
-    const buttonsCollection = document.querySelectorAll('.Keybord button');
-    buttonsCollection.forEach(button => {
-      const value = button.getAttribute('value');
-      if(value === position) {
-        buttonElement = button as HTMLElement;
-        buttonElement?.focus();
-      }
-    });
-  }
-
   return (
-    <div className="Keybord">
+    <div className={style.Keyboard}>
       <button type="button" onClick={onClick} value="1">1</button>
       <button type="button" onClick={onClick} value="2">2</button>
       <button type="button" onClick={onClick} value="3">3</button>
@@ -78,7 +46,7 @@ function Keybord({onClick}: Props) :JSX.Element {
       <button
         type="button"
         value="delete"
-        className="buttonClear"
+        className={style.buttonClear}
         onClick={onClick}
       >Стереть</button>
     </div>

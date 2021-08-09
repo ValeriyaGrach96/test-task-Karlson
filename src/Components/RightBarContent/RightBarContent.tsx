@@ -1,4 +1,4 @@
-import './RightBarContent.css';
+import styles from './RightBarContent.module.css';
 import CloseSvg from '../../assets/icons/iconClose.svg';
 import QRcode from '../../assets/images/QRcode.svg';
 import { Page } from '../../App';
@@ -9,11 +9,11 @@ interface Props {
 
 function RightBarContent({ goBack }: Props) :JSX.Element {
   return (
-    <div className="RightBarContent">
-      <button aria-label="закрыть окно" className="CloseButton" onClick={() => {goBack('landing')}}>
+    <div className={styles.RightBarContent}>
+      <button aria-label="закрыть окно" className={styles.CloseButton} onClick={() => {goBack('landing')}}>
         <img src={CloseSvg} alt="крестик" />
       </button>
-      <article className="QRcode">
+      <article className={styles.QRcode}>
         <p>Сканируйте QR-код для получения дополнительной информации</p>
         <img src={QRcode} alt="QRкод" />
       </article>

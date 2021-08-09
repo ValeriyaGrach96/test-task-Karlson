@@ -7,8 +7,11 @@ import React, {
   useContext,
 } from "react";
 import Keybord from "../Keybord/Keybord";
-import "./Form.css";
+import styles from "./Form.module.css";
 import PageContext from "../../Context/PageContext";
+import api from "../../assets/API/API";
+import { newPhoneByInput, formatPhoneNumber } from "../../assets/utils/formater";
+
 
 function Form(): JSX.Element {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -18,7 +21,7 @@ function Form(): JSX.Element {
 
   const changeStep = useContext(PageContext);
   const classesForTel = useMemo((): string => {
-    return `inputTel ${error ? 'error': ''}`;
+    return `${styles.inputTel} ${error ? styles.error : ''}`;
   }, [error]);
 
   function handleKeyPress(event: KeyboardEvent) {
@@ -31,47 +34,13 @@ function Form(): JSX.Element {
 
   const handlePhoneNumber = useCallback(
     (userInput: string) => {
-      let newPhoneNumber = "";
       setError(false);
-
-      if (userInput === "delete" || userInput === "Backspace") {
-        newPhoneNumber = phoneNumber.slice(0, phoneNumber.length - 1);
-      } else {
-        if (Number(userInput) || Number(userInput) === 0) {
-          const copyNewPhone = phoneNumber + userInput;
-          newPhoneNumber = copyNewPhone;
-          if (copyNewPhone.length > 10) {
-            newPhoneNumber = copyNewPhone.slice(0, 10);
-          }
-        } else {
-          newPhoneNumber = phoneNumber;
-        }
-      }
+      const newPhoneNumber = newPhoneByInput(userInput, phoneNumber);
       setPhoneNumber(newPhoneNumber);
-      const formatedPhone = formatPhoneNumber(newPhoneNumber);
-      visiblePhoneNumber(formatedPhone);
+      visiblePhoneNumber(formatPhoneNumber(newPhoneNumber));
     },
     [phoneNumber]
   );
-
-  const validateNumber = async (number: number): Promise<boolean> => {
-    const response =  await fetch(`https://apilayer.net/api/validate?access_key=b63d6b11c2871c38f0d17ff886cf438e&country_code=RU&number=${number}`)
-    const json = await response.json();
-    return Boolean(json.valid);
-  }
-
-  const formatPhoneNumber = (phoneNumber: string): string => {
-    const phoneLength = phoneNumber.length;
-    let newPhoneNumber = "";
-
-    if (phoneLength < 11) {
-      for (let i = phoneLength; i <= 10; i++) {
-        phoneNumber += "_";
-      }
-      newPhoneNumber = phoneNumber;
-    }
-    return newPhoneNumber;
-  };
 
   const visiblePhoneNumber = (phoneNumber: string) => {
     const newPhone = `+7(${phoneNumber.slice(0, 3)})${phoneNumber.slice(3, 6)}-${phoneNumber.slice(6, 8)}-${phoneNumber.slice(8, 10)}`;
@@ -88,7 +57,7 @@ function Form(): JSX.Element {
   );
 
   const onSubmit = async () => {
-    const isValid = await validateNumber(Number(phoneNumber));
+    const isValid = await api.validateNumber(Number(phoneNumber));
     if(isValid) {
       changeStep('finish');
     } else {
@@ -105,7 +74,7 @@ function Form(): JSX.Element {
   });
 
   return (
-    <form className="Form" onSubmit={(e) => e.preventDefault()}>
+    <form className={styles.Form} onSubmit={(e) => e.preventDefault()}>
       <input type="tel" value={visibleNumber} className={classesForTel} readOnly />
       <p>
         и с Вами свяжется наш менеждер для
@@ -113,22 +82,22 @@ function Form(): JSX.Element {
       </p>
       <Keybord onClick={handleClick} />
       {!error ? (
-        <div className="checkboxWrapper">
+        <div className={styles.checkboxWrapper}>
         <input
           type="checkbox"
           id="consentPerson"
-          className="inputCheckbox"
+          className={styles.inputCheckbox}
           onChange={() => setCheckbox(!checkbox)}
         />
         <label htmlFor="consentPerson">
           Согласие на обработку персональных данных
         </label>
       </div>
-      ) : (<p className="error">Неверно введен номер</p>)}
+      ) : (<p className={styles.error}>Неверно введен номер</p>)}
       <button
         type="submit"
         disabled={isDisabled}
-        className="ButtonSubmit"
+        className={styles.ButtonSubmit}
         onClick={onSubmit}
       >
         ПОДТВЕРДИТЬ НОМЕР
