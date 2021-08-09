@@ -1,6 +1,13 @@
 # Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Application deployed here: https://thirsty-bell-1e2567.netlify.app
+Requirements:
+1. Site design
+2. Navigation and input phone number via html keyboard.
+3. Button disabled until valid phone-number’s length and accepted with conditions.
+4. Default sizes are fixed (1280x720).
+5. Add video and banner witch appeares after 5 sec
+6. Navigation in html keyboard via keyboard arrows.
+7. Add validation phone number via https://numverify.com/documentation
 
 ## Available Scripts
 
